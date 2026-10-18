@@ -1,0 +1,21 @@
+@layer components {
+  .pixel-frame {
+    --frame-color: var(--accent-secondary);
+    --frame-light: color-mix(in oklab, var(--frame-color), white 35%);
+    --frame-dark: color-mix(in oklab, var(--frame-color), black 35%);
+    --frame-outline: color-mix(in oklab, var(--frame-color), black 85%);
+    --frame-screen: color-mix(in oklab, var(--frame-color), black 88%);
+  }
+
+  .pixel-frame__border {
+    background: var(--frame-color);
+    box-shadow:
+      inset var(--px) var(--px) 0 var(--frame-light),
+      inset calc(-1 * var(--px)) calc(-1 * var(--px)) 0 var(--frame-dark);
+  }
+
+  .pixel-frame__content {
+    background: var(--frame-screen);
+    box-shadow: inset var(--px) var(--px) 0 var(--frame-outline);
+  }
+}

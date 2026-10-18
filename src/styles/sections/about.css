@@ -1,0 +1,263 @@
+@layer components {
+  .stepped-edge {
+    margin-top: calc(-1 * var(--edge-height));
+    padding-top: var(--edge-height);
+    isolation: isolate;
+  }
+
+  .stepped-edge__backdrop {
+    position: absolute;
+    z-index: -10;
+    top: 0;
+    bottom: 0;
+    left: calc(-1 * var(--edge-tile-width));
+    width: calc(100% + var(--edge-tile-width));
+    pointer-events: none;
+    mask-image: var(--edge-mask), linear-gradient(#000, #000);
+    mask-size:
+      var(--edge-tile-width) var(--edge-height),
+      100% calc(100% - var(--edge-height));
+    mask-position:
+      0 0,
+      0 var(--edge-height);
+    mask-repeat: repeat-x, no-repeat;
+    animation: stepped-edge-slide 60s linear infinite;
+  }
+
+  .stepped-edge__fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--edge-tile-width);
+    width: calc(100% - var(--edge-tile-width));
+    animation: stepped-edge-hold 60s linear infinite;
+  }
+
+  .legacy-art {
+    isolation: isolate;
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: 53%;
+      top: 50%;
+      width: 60rem;
+      height: 60rem;
+      margin: -30rem;
+      pointer-events: none;
+      background: radial-gradient(
+        circle closest-side,
+        color-mix(in srgb, var(--accent-secondary) 23%, transparent) 0,
+        color-mix(in srgb, var(--accent-secondary) 20%, transparent) 5rem,
+        color-mix(in srgb, var(--accent-secondary) 14%, transparent) 10rem,
+        color-mix(in srgb, var(--accent-secondary) 7.5%, transparent) 15rem,
+        color-mix(in srgb, var(--accent-secondary) 3%, transparent) 20rem,
+        color-mix(in srgb, var(--accent-secondary) 1%, transparent) 25rem,
+        transparent
+      );
+    }
+  }
+
+  .legacy-art__pickaxe {
+    animation: rotate-hit 2s infinite cubic-bezier(1, 0, 1, 0);
+  }
+
+  .legacy-art__computer {
+    animation: bounce-hit 2s infinite cubic-bezier(1, 0, 0, 1) -1.85s;
+  }
+
+  .legacy-art__flash,
+  .legacy-art__particle {
+    top: 39%;
+    left: 54%;
+    opacity: 0;
+  }
+
+  .legacy-art__flash {
+    background: white;
+    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+    filter: drop-shadow(0 0 0.5rem var(--accent));
+    animation: impact-flash 2s infinite -1s;
+  }
+
+  .legacy-art__particle {
+    animation: particle-burst 2s infinite calc(-1s + var(--particle-delay, 0s));
+  }
+
+  .legacy-art__particle--debris {
+    background: var(--particle-tone);
+    box-shadow: 2px 2px 0 black;
+    animation-name: debris-burst;
+  }
+
+  .error-chip {
+    filter: drop-shadow(3px 3px 0 black) drop-shadow(0 0 0.375rem var(--particle-tone));
+  }
+
+  .error-chip__body {
+    --notch: 4px;
+
+    background: var(--background);
+    clip-path: polygon(
+      var(--notch) 0,
+      calc(100% - var(--notch)) 0,
+      calc(100% - var(--notch)) var(--notch),
+      100% var(--notch),
+      100% calc(100% - var(--notch)),
+      calc(100% - var(--notch)) calc(100% - var(--notch)),
+      calc(100% - var(--notch)) 100%,
+      var(--notch) 100%,
+      var(--notch) calc(100% - var(--notch)),
+      0 calc(100% - var(--notch)),
+      0 var(--notch),
+      var(--notch) var(--notch)
+    );
+  }
+
+  .error-chip__tag {
+    background: var(--particle-tone);
+  }
+
+  .error-chip__text {
+    border-block: 2px solid var(--particle-tone);
+    border-right: 2px solid var(--particle-tone);
+    background: repeating-linear-gradient(transparent 0 2px, oklch(1 0 0 / 4%) 2px 3px);
+    animation: rgb-glitch 0.9s steps(1) infinite;
+  }
+}
+
+@keyframes stepped-edge-slide {
+  to {
+    translate: var(--edge-tile-width) 0;
+  }
+}
+
+@keyframes stepped-edge-hold {
+  to {
+    translate: calc(-1 * var(--edge-tile-width)) 0;
+  }
+}
+
+@keyframes rotate-hit {
+  0% {
+    rotate: -45deg;
+    translate: 0 0;
+    animation-timing-function: cubic-bezier(1, 0, 1, 0);
+  }
+  50% {
+    rotate: 0deg;
+    translate: 4rem 4rem;
+    animation-timing-function: ease-in-out;
+  }
+  100% {
+    rotate: -45deg;
+    translate: 0 0;
+  }
+}
+
+@keyframes bounce-hit {
+  0%,
+  40%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 1rem;
+  }
+}
+
+@keyframes particle-burst {
+  0% {
+    translate: -50% -50%;
+    scale: 0.2;
+    rotate: 0deg;
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0, 0.8, 0.4, 1);
+  }
+  40% {
+    translate: calc(-50% + var(--particle-dx)) calc(-50% + var(--particle-dy));
+    scale: 1;
+    rotate: var(--particle-rotate);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  60%,
+  100% {
+    translate: calc(-50% + var(--particle-dx) * 1.15) calc(-50% + var(--particle-dy) + 2rem);
+    scale: 0.8;
+    rotate: calc(var(--particle-rotate) * 1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes debris-burst {
+  0% {
+    translate: -50% -50%;
+    rotate: 0deg;
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0, 0.8, 0.4, 1);
+  }
+  25% {
+    translate: calc(-50% + var(--particle-dx)) calc(-50% + var(--particle-dy));
+    rotate: var(--particle-rotate);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  40%,
+  100% {
+    translate: calc(-50% + var(--particle-dx) * 1.2) calc(-50% + var(--particle-dy) + 3rem);
+    rotate: calc(var(--particle-rotate) * 2);
+    opacity: 0;
+  }
+}
+
+@keyframes impact-flash {
+  0% {
+    translate: -50% -50%;
+    scale: 0.2;
+    rotate: 0deg;
+    opacity: 1;
+  }
+  8% {
+    translate: -50% -50%;
+    scale: 1.4;
+    rotate: 20deg;
+    opacity: 0.9;
+  }
+  14%,
+  100% {
+    translate: -50% -50%;
+    scale: 1.8;
+    rotate: 30deg;
+    opacity: 0;
+  }
+}
+
+@keyframes rgb-glitch {
+  0%,
+  100% {
+    text-shadow: none;
+    translate: 0 0;
+  }
+  10% {
+    text-shadow:
+      -2px 0 var(--color-red-500),
+      2px 0 var(--color-cyan-400);
+    translate: 1px 0;
+  }
+  20% {
+    text-shadow: none;
+    translate: 0 0;
+  }
+  55% {
+    text-shadow:
+      2px 0 var(--color-red-500),
+      -2px 0 var(--color-cyan-400);
+    translate: -1px 0;
+  }
+  62% {
+    text-shadow: none;
+    translate: 0 0;
+  }
+}

@@ -1,0 +1,68 @@
+@layer components {
+  .arcade-button {
+    --arcade-top: var(--color-plum-600);
+    --arcade-top-light: var(--color-plum-400);
+    --arcade-front: var(--color-plum-800);
+    --arcade-front-height: 1rem;
+
+    position: relative;
+    isolation: isolate;
+    padding-inline: 0.5rem;
+    padding-bottom: 2.25rem;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 1rem 0 0;
+      z-index: -1;
+      background: linear-gradient(
+        var(--arcade-top) calc(100% - var(--arcade-front-height) - var(--px)),
+        var(--color-outline) 0 calc(100% - var(--arcade-front-height)),
+        var(--arcade-front) 0
+      );
+      box-shadow:
+        inset var(--px) var(--px) 0 var(--arcade-top-light),
+        0 0 0 var(--px) var(--color-outline);
+    }
+
+    > .pixel-button {
+      --arcade-depth: calc(6 * var(--px));
+      --arcade-side: color-mix(in oklab, var(--button-color), black 50%);
+      --button-relief:
+        inset var(--px) var(--px) 0 color-mix(in oklab, var(--button-color), white 35%),
+        inset calc(-1 * var(--px)) 0 0 color-mix(in oklab, var(--button-color), black 70%);
+
+      position: relative;
+      box-shadow:
+        var(--button-relief),
+        0 0 0 var(--px) var(--color-outline);
+      transition:
+        translate 80ms,
+        background-color 80ms;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: calc(100% + var(--px));
+        left: calc(-1 * var(--px));
+        right: calc(-1 * var(--px));
+        height: calc(var(--arcade-depth) - var(--px));
+        background: var(--arcade-side);
+        border: var(--px) solid var(--color-outline);
+        border-top: 0;
+        box-sizing: content-box;
+        transition: height 80ms;
+      }
+
+      &:hover {
+        --arcade-depth: calc(7 * var(--px));
+        translate: 0 calc(-1 * var(--px));
+      }
+
+      &:active {
+        --arcade-depth: var(--px);
+        translate: 0 calc(5 * var(--px));
+      }
+    }
+  }
+}

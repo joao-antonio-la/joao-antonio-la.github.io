@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>%SITE_TITLE%</title>
+    <meta name="description" content="%SITE_DESCRIPTION%" />
+    <meta name="author" content="%SITE_NAME%" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="%SITE_NAME%" />
+    <meta property="og:title" content="%SITE_TITLE%" />
+    <meta property="og:description" content="%SITE_DESCRIPTION%" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="%SITE_TITLE%" />
+    <meta name="twitter:description" content="%SITE_DESCRIPTION%" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/press-start-2p-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body>
+    <noscript>
+      <main class="flex min-h-svh flex-col items-center justify-center gap-8 px-6 py-16">
+        <img src="/src/assets/arts/icon.png" alt="" width="64" height="64" class="pixelated" />
+        <div class="terminal-frame w-full max-w-2xl bg-outline p-(--px) hard-shadow">
+          <div class="terminal-frame__bar flex items-center gap-3 px-3 py-2 text-2xs">
+            <span class="text-accent">&gt;_</span>
+            <span class="min-w-0 flex-1 truncate text-plum-200">bash - ~</span>
+            <span class="flex gap-1.5">
+              <span class="terminal-frame__control" data-icon="minimize"></span>
+              <span class="terminal-frame__control" data-icon="maximize"></span>
+              <span class="terminal-frame__control" data-icon="close"></span>
+            </span>
+          </div>
+          <div class="terminal-frame__screen space-y-6 p-6 text-white max-sm:p-4">
+            <p class="text-2xs">
+              <span class="text-plum-400">%PROMPT_USER%</span>:<span class="text-accent-secondary">~</span
+              ><span class="text-accent">$</span> whoami
+            </p>
+            <div class="space-y-3">
+              <h1 class="text-xl leading-relaxed">%SITE_NAME%</h1>
+              <p class="text-sm leading-relaxed text-plum-200">%SITE_ROLES%</p>
+            </div>
+            <p class="text-lg leading-relaxed italic">"%SITE_MANIFESTO%"</p>
+            <p class="text-sm leading-relaxed text-plum-200">
+              Este portfólio usa JavaScript para o terminal interativo e as animações. Ative-o para ver o site completo
+              ou fale comigo:
+            </p>
+            <ul class="space-y-3 text-sm">
+              <li class="flex gap-2">
+                <span class="text-accent">&gt;</span>
+                <a class="wrap-anywhere underline underline-offset-4 hover:text-accent" href="%CONTACT_MAILTO%"
+                  >%CONTACT_EMAIL%</a
+                >
+              </li>
+              <li class="flex gap-2">
+                <span class="text-accent">&gt;</span>
+                <a class="underline underline-offset-4 hover:text-accent" href="%GITHUB_URL%">GitHub</a>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-accent">&gt;</span>
+                <a class="underline underline-offset-4 hover:text-accent" href="%LINKEDIN_URL%">LinkedIn</a>
+              </li>
+            </ul>
+            <p class="text-2xs">
+              <span class="text-plum-400">%PROMPT_USER%</span>:<span class="text-accent-secondary">~</span
+              ><span class="text-accent">$</span> <span class="terminal-prompt__cursor"></span>
+            </p>
+          </div>
+          <div class="terminal-frame__status flex justify-between gap-4 px-3 py-1.5 text-2xs">
+            <span>JavaScript desativado</span>
+            <span>modo texto</span>
+          </div>
+        </div>
+      </main>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

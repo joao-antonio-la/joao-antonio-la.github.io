@@ -1,0 +1,196 @@
+@layer components {
+  .hero-glow::after {
+    --glow: var(--accent);
+    --sine-from-x: -130px;
+    --sine-to-x: 130px;
+    --sine-from-y: 58px;
+    --sine-to-y: -58px;
+
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: calc(1.5rem + 150px);
+    top: calc(6rem + 100px);
+    width: 128rem;
+    height: 128rem;
+    margin: -64rem;
+    pointer-events: none;
+    background: radial-gradient(
+      circle closest-side,
+      color-mix(in srgb, var(--glow) 18%, transparent) 0,
+      color-mix(in srgb, var(--glow) 15.5%, transparent) 10.5rem,
+      color-mix(in srgb, var(--glow) 10.7%, transparent) 21rem,
+      color-mix(in srgb, var(--glow) 5.7%, transparent) 31.5rem,
+      color-mix(in srgb, var(--glow) 2.4%, transparent) 42rem,
+      color-mix(in srgb, var(--glow) 0.8%, transparent) 52.5rem,
+      transparent
+    );
+    animation:
+      sine-x 8s var(--ease-in-out-sine) -4s infinite alternate,
+      sine-y 4s var(--ease-in-out-sine) -2s infinite alternate,
+      scale-pulse 8s ease-in-out infinite;
+  }
+
+  .wave-background__strip {
+    animation: wave-sway 12s ease-in-out infinite;
+  }
+
+  .wave-background__layer:nth-child(1) {
+    z-index: -1;
+    left: -25px;
+  }
+
+  .wave-background__layer:nth-child(2) {
+    z-index: -2;
+    filter: brightness(0.8);
+  }
+
+  .wave-background__layer:nth-child(3) {
+    z-index: -3;
+    left: 25px;
+    filter: brightness(0.6);
+  }
+
+  .tech-orbit {
+    --orbit-size: min(40rem, 80vw);
+    --orbit-icon-size: calc(var(--orbit-size) * 0.0875);
+    --orbit-nucleus-size: calc(var(--orbit-size) * 0.1125);
+
+    @media (width >= 64rem) {
+      --orbit-size: min(40rem, 40vw);
+    }
+
+    @media (width >= 80rem) {
+      --orbit-icon-size: calc(var(--orbit-size) * 0.1125);
+    }
+  }
+
+  .tech-orbit__stage {
+    width: calc(var(--orbit-size) * 1.25);
+    height: calc(var(--orbit-size) * 1.125);
+  }
+
+  .tech-orbit__path {
+    width: var(--orbit-size);
+    height: var(--orbit-size);
+  }
+
+  .tech-orbit__icon {
+    width: var(--orbit-icon-size);
+    height: var(--orbit-icon-size);
+  }
+
+  .tech-orbit__rings {
+    filter: drop-shadow(0 0 1rem var(--accent));
+  }
+
+  .tech-orbit__ring {
+    width: var(--orbit-size);
+    animation: hue-pulse 3s linear infinite;
+  }
+
+  .tech-orbit__item {
+    --sine-center-x: -50%;
+    --sine-center-y: -50%;
+    --sine-from-x: calc(var(--orbit-size) / 2);
+    --sine-to-x: calc(var(--orbit-size) / -2);
+    --sine-from-y: calc(var(--orbit-size) * -0.15);
+    --sine-to-y: calc(var(--orbit-size) * 0.15);
+    --sine-extra-transform: rotate(calc(-1 * var(--orbit-tilt)));
+    --half-turn: calc(var(--orbit-duration) / 2);
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    animation:
+      sine-x var(--half-turn) var(--ease-in-out-sine) var(--orbit-delay) infinite alternate,
+      sine-y var(--half-turn) var(--ease-in-out-sine) calc(var(--orbit-delay) - var(--orbit-duration) / 4) infinite
+        alternate;
+  }
+
+  .tech-orbit__nucleus {
+    width: var(--orbit-nucleus-size);
+    height: var(--orbit-nucleus-size);
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: 50%;
+      top: 50%;
+      width: 720px;
+      height: 720px;
+      margin: -360px;
+      pointer-events: none;
+      background: radial-gradient(
+        circle closest-side,
+        color-mix(in srgb, var(--accent) 11%, transparent) 0,
+        color-mix(in srgb, var(--accent) 9.7%, transparent) 60px,
+        color-mix(in srgb, var(--accent) 6.7%, transparent) 120px,
+        color-mix(in srgb, var(--accent) 3.6%, transparent) 180px,
+        color-mix(in srgb, var(--accent) 1.5%, transparent) 240px,
+        color-mix(in srgb, var(--accent) 0.5%, transparent) 300px,
+        transparent
+      );
+    }
+  }
+
+  .tech-orbit__nucleus-icon {
+    --sine-from-x: -40px;
+    --sine-to-x: 40px;
+    --sine-from-y: 15px;
+    --sine-to-y: -15px;
+
+    animation:
+      sine-x 12s var(--ease-in-out-sine) -6s infinite alternate,
+      sine-y 6s var(--ease-in-out-sine) -3s infinite alternate;
+  }
+}
+
+@keyframes sine-x {
+  from {
+    translate: calc(var(--sine-center-x, 0px) + var(--sine-from-x)) var(--sine-center-y, 0px);
+  }
+  to {
+    translate: calc(var(--sine-center-x, 0px) + var(--sine-to-x)) var(--sine-center-y, 0px);
+  }
+}
+
+@keyframes sine-y {
+  from {
+    transform: translateY(var(--sine-from-y)) var(--sine-extra-transform,);
+  }
+  to {
+    transform: translateY(var(--sine-to-y)) var(--sine-extra-transform,);
+  }
+}
+
+@keyframes scale-pulse {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.5;
+  }
+}
+
+@keyframes hue-pulse {
+  0%,
+  100% {
+    filter: hue-rotate(0);
+  }
+  50% {
+    filter: hue-rotate(70deg);
+  }
+}
+
+@keyframes wave-sway {
+  0%,
+  100% {
+    transform: translateX(-75px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+}

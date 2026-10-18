@@ -1,0 +1,7 @@
+@layer components {
+  .pixel-dissolve {
+    mask-image: var(--dissolve-mask);
+    mask-size: var(--dissolve-tile-width) 100%;
+    mask-repeat: repeat-x;
+  }
+}

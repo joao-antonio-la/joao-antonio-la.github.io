@@ -1,0 +1,108 @@
+@layer components {
+  .terminal-frame {
+    --terminal-bar: var(--color-plum-600);
+    --terminal-bar-light: var(--color-plum-400);
+    --terminal-bar-dark: var(--color-plum-700);
+    --terminal-screen: var(--color-plum-950);
+  }
+
+  .terminal-frame__bar {
+    background: var(--terminal-bar);
+    box-shadow:
+      inset 0 var(--px) 0 var(--terminal-bar-light),
+      inset 0 calc(-1 * var(--px)) 0 var(--terminal-bar-dark),
+      0 var(--px) 0 var(--color-outline);
+  }
+
+  .terminal-frame__control {
+    position: relative;
+    width: calc(7 * var(--px));
+    height: calc(7 * var(--px));
+    background: var(--terminal-bar-dark);
+    box-shadow:
+      inset var(--px) var(--px) 0 var(--terminal-bar-light),
+      inset calc(-1 * var(--px)) calc(-1 * var(--px)) 0 var(--color-outline);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: calc(2 * var(--px));
+      background: var(--terminal-bar-light);
+    }
+
+    &[data-icon="minimize"]::before {
+      top: auto;
+      height: var(--px);
+    }
+
+    &[data-icon="maximize"]::before {
+      background: none;
+      border: var(--px) solid var(--terminal-bar-light);
+      border-top-width: calc(2 * var(--px));
+    }
+
+    &[data-icon="close"] {
+      background: var(--accent-secondary);
+
+      &::before {
+        background: white;
+        clip-path: polygon(
+          0 0,
+          33.3% 0,
+          50% 33.3%,
+          66.6% 0,
+          100% 0,
+          100% 33.3%,
+          66.6% 50%,
+          100% 66.6%,
+          100% 100%,
+          66.6% 100%,
+          50% 66.6%,
+          33.3% 100%,
+          0 100%,
+          0 66.6%,
+          33.3% 50%,
+          0 33.3%
+        );
+      }
+    }
+  }
+
+  .terminal-frame__screen {
+    position: relative;
+    background: var(--terminal-screen);
+    box-shadow: inset 0 0 4rem color-mix(in srgb, var(--accent) 8%, transparent);
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        transparent 0 var(--px),
+        rgb(255 255 255 / 0.03) var(--px) calc(2 * var(--px))
+      );
+    }
+  }
+
+  .terminal-frame__status {
+    background: var(--accent);
+    color: var(--terminal-screen);
+    box-shadow: 0 calc(-1 * var(--px)) 0 var(--color-outline);
+  }
+
+  .terminal-prompt__cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1em;
+    vertical-align: text-bottom;
+    background: var(--accent);
+    animation: cursor-blink 1s steps(1) infinite;
+  }
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}

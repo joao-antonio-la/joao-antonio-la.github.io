@@ -1,0 +1,30 @@
+import type { ContentFile } from "@/content/schema";
+
+export default {
+  modified: "2026-10-14T09:12:00",
+  content: [
+    "Comandos:",
+    "  ls [-a] [-l] [caminho]",
+    "    lista arquivos e pastas",
+    "  cd [pasta]",
+    "    entra em uma pasta",
+    "  cat [arquivo]",
+    "    mostra o conteúdo de um arquivo",
+    "  clear",
+    "    limpa a tela",
+    "",
+    "Atalhos:",
+    "  whoami  quem sou eu",
+    "  help    esta ajuda",
+    "",
+    "Teclado:",
+    "  Tab              completa",
+    "  Tab Tab          lista as opções",
+    "  Seta cima/baixo  histórico",
+    "  Ctrl+L           limpa a tela",
+    "  Ctrl+C           cancela a linha",
+    "  Ctrl+D           sai do terminal",
+    "",
+    "Comece com: ls",
+  ],
+} satisfies ContentFile;

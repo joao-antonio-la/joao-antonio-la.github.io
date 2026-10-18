@@ -1,0 +1,66 @@
+@font-face {
+  font-family: "Press Start 2P";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/press-start-2p-latin.woff2") format("woff2");
+}
+
+@layer base {
+  * {
+    @apply outline-accent;
+  }
+
+  html {
+    @apply font-pixel;
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+:root {
+  --px: calc(var(--spacing) / 2);
+  font-size: 10px;
+}
+
+@media (width < 64rem) {
+  :root {
+    font-size: 8px;
+  }
+}
+
+@media (width >= 96rem) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+[data-offscreen],
+[data-offscreen]::before,
+[data-offscreen]::after,
+[data-offscreen] *,
+[data-offscreen] *::before,
+[data-offscreen] *::after {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-play-state: paused !important;
+    transition: none !important;
+  }
+}
