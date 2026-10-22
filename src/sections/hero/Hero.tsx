@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Section } from "@/components/layout/Section";
 import { ArcadeButton } from "@/components/ui/ArcadeButton";
 import { TerminalFrame, TerminalPrompt } from "@/components/ui/TerminalFrame";
@@ -30,17 +29,6 @@ export const Hero = () => {
       <WaveBackground />
       <div className="flex max-w-full flex-col gap-8 max-sm:gap-6">
         <TerminalFrame title="bash - ~" contentClassName="space-y-4">
-          <TerminalPrompt className="text-2xs">cat manifesto.txt</TerminalPrompt>
-          <h1 className="text-2xl italic max-sm:text-xl">
-            "
-            {PROFILE.manifesto.map((line, i) => (
-              <Fragment key={i}>
-                {i > 0 && <br />}
-                {line}
-              </Fragment>
-            ))}
-            "
-          </h1>
           <TerminalPrompt className="text-2xs">whoami</TerminalPrompt>
           <div>
             <p className="mb-4">{PROFILE.name}</p>
